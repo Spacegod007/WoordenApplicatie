@@ -1,0 +1,3 @@
+# WoordenApplicatie
+This is an application to do some general stuff with words
+What can i say... it's a school app...
