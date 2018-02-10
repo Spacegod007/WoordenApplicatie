@@ -11,10 +11,6 @@ public class IWoordenLogicTest
     private final String TEST_TEXT_1 = "this is a test text";
     private final String TEST_TEXT_2 = "this is test text 2, and this is supposed to test more";
 
-    private final String TEST_TEXT_3 = "this is a test text \n" +
-            "with text on multiple on lines \n" +
-            "with double text";
-
     private IWoordenLogic logic;
 
     @Before
@@ -171,7 +167,7 @@ public class IWoordenLogicTest
     {
         Map<String, Set<Integer>> result = logic.wordsOnLines(TEST_TEXT_1);
 
-        String[] simpleResult = TEST_TEXT_1.split("[, \n]");
+        String[] simpleResult = TEST_TEXT_1.toLowerCase().split("[, \n]+");
 
         for (String splitItem : simpleResult)
         {
@@ -179,37 +175,41 @@ public class IWoordenLogicTest
 
             if (integers == null)
             {
-                Assert.fail("every item should at least appear once");
+                Assert.fail("Every word should contain at least 1 value");
             }
 
             integers.iterator().forEachRemaining(integer -> {
                 if (integer != 1)
                 {
-                    Assert.fail(String.valueOf(integer)); //todo fix this!
-                }
-            });
-
-            result = logic.wordsOnLines(TEST_TEXT_3);
-
-            Set<Integer> thisIntegers = result.get("this");
-            if (thisIntegers.size() != 1)
-            {
-                Assert.fail("Every item should appear at least once");
-            }
-
-            Set<Integer> onIntegers = result.get("on");
-            if (onIntegers.size() > 1)
-            {
-                Assert.fail("Every integer can only appear once per word");
-            }
-
-            Set<Integer> withIntegers = result.get("with");
-            withIntegers.iterator().forEachRemaining(integer -> {
-                if (!(integer == 2 || integer == 3))
-                {
-                    Assert.fail("Incorrect integers assigned to 'with' value");
+                    Assert.fail("Incorrect line number has been given to words in a text with one line"); //todo fix this!
                 }
             });
         }
+
+        String lineTestText = "this is a test text \n" +
+                "with text on multiple on lines \n" +
+                "with double text";
+
+        result = logic.wordsOnLines(lineTestText);
+
+        Set<Integer> thisIntegers = result.get("this");
+        if (thisIntegers.size() != 1)
+        {
+            Assert.fail("Every item should appear at least once");
+        }
+
+        Set<Integer> onIntegers = result.get("on");
+        if (onIntegers.size() > 1)
+        {
+            Assert.fail("Every integer can only appear once per word");
+        }
+
+        Set<Integer> withIntegers = result.get("with");
+        withIntegers.iterator().forEachRemaining(integer -> {
+            if (!(integer == 2 || integer == 3))
+            {
+                Assert.fail("Incorrect integers assigned to 'with' value");
+            }
+        });
     }
 }

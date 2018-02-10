@@ -22,11 +22,21 @@ public class WoordenLogic implements IWoordenLogic
         return getHashSetText(text).size();
     }
 
+    /**
+     * Gets a HashSet containing the individual words in the given text
+     * @param text to be split into individual words
+     * @return a HashSet containing the individual words in the given text
+     */
     private HashSet<String> getHashSetText(String text)
     {
         return new HashSet<>(getListText(text));
     }
 
+    /**
+     * Gets a TreeSet containing the individual words in the given text
+     * @param text to be split into individual words
+     * @return a TreeSet containing the individual words in the given text
+     */
     private TreeSet<String> getTreeSetText(String text)
     {
         return new TreeSet<>(getListText(text));
@@ -43,14 +53,14 @@ public class WoordenLogic implements IWoordenLogic
     @Override
     public SortedSet<Map.Entry<String, Integer>> frequenceOfWords(String text)
     {
+        List<String> listText = getListText(text);
+        HashSet<String> hashSetText = new HashSet<>(listText);
+
         SortedSet<Map.Entry<String, Integer>> sortedSet = new TreeSet<>((e1, e2) ->
         {
             int res = e1.getValue().compareTo(e2.getValue());
             return res != 0 ? res : 1;
         });
-
-        List<String> listText = getListText(text);
-        HashSet<String> hashSetText = new HashSet<>(listText);
 
         hashSetText.forEach(string -> sortedSet.add(new AbstractMap.SimpleEntry<>(string, Collections.frequency(listText, string))));
 
@@ -62,7 +72,9 @@ public class WoordenLogic implements IWoordenLogic
     {
         String[] split = text.toLowerCase().split("[\n]+");
         List<String> list = Arrays.asList(split);
+
         Map<String, Set<Integer>> treeMap = new TreeMap<>();
+
         getHashSetText(text).forEach(string -> {
             Set<Integer> integers = new HashSet<>();
 
@@ -84,6 +96,7 @@ public class WoordenLogic implements IWoordenLogic
             }
             treeMap.put(string, integers);
         });
+
         return treeMap;
     }
 }
