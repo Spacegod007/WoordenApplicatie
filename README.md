@@ -1,3 +1,3 @@
 # WoordenApplicatie
-This is an application to do some general stuff with words
+This is an application to do some general stuff with words<br>
 What can i say... it's a school app...
