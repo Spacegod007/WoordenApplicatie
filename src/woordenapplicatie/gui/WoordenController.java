@@ -21,8 +21,6 @@ import java.util.logging.Logger;
  */
 public class WoordenController implements Initializable
 {
-    private static final Logger LOGGER = Logger.getLogger(WoordenController.class.getName());
-
     private IWoordenLogic woordenLogic;
 
     private static final String EEN_TWEE_DRIE_VIER = "Een, twee, drie, vier\n";

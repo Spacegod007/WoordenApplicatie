@@ -24,7 +24,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         String[] returnable = logic.getSplitText(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("getSplitText - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("getSplitText - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 
@@ -34,7 +35,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         List<String> returnable = logic.getListText(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("getListText - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("getListText - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 
@@ -44,7 +46,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         int returnable = logic.getUniqueWordCount(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("getUniqueWordCount - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("getUniqueWordCount - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 
@@ -54,7 +57,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         List<String> returnable = logic.sortDescending(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("sortDescending - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("sortDescending - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 
@@ -64,7 +68,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         SortedSet<Map.Entry<String, Integer>> returnable = logic.frequenceOfWords(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("frequenceOfWords - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("frequenceOfWords - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 
@@ -74,7 +79,8 @@ public class PerformanceTestIWoordenLogic implements IWoordenLogic
         long startTime = System.nanoTime();
         Map<String, Set<Integer>> returnable = logic.wordsOnLines(text);
         long resultTime = System.nanoTime() - startTime;
-        LOGGER.log(Level.INFO, String.format("wordsOnLines - Time measured: %d nanoseconds", resultTime));
+        String logMessage = String.format("wordsOnLines - Time measured: %d nanoseconds", resultTime);
+        LOGGER.log(Level.INFO, logMessage);
         return returnable;
     }
 }
