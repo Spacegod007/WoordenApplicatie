@@ -5,21 +5,21 @@ import java.util.*;
 public class WoordenLogic implements IWoordenLogic
 {
     @Override
-    public String[] getSplitText(String text)
+    public String[] getSplitText(String text) // O(N^2)
     {
-        return text.toLowerCase().split("[, \n]+");
+        return text.toLowerCase().split("[, \n]+"); // O(N^2)
     }
 
     @Override
-    public List<String> getListText(String text)
+    public List<String> getListText(String text) // O(N + N^2)
     {
-        return Arrays.asList(getSplitText(text));
+        return Arrays.asList(getSplitText(text)); // O(1 + N^2)
     }
 
     @Override
-    public int getUniqueWordCount(String text)
+    public int getUniqueWordCount(String text) // O(N + N^2+ 1)
     {
-        return getHashSetText(text).size();
+        return getHashSetText(text).size(); // O(1 + N^2+ 1)
     }
 
     /**
@@ -27,9 +27,9 @@ public class WoordenLogic implements IWoordenLogic
      * @param text to be split into individual words
      * @return a HashSet containing the individual words in the given text
      */
-    private HashSet<String> getHashSetText(String text)
+    private HashSet<String> getHashSetText(String text) // O(2 + N^2)
     {
-        return new HashSet<>(getListText(text));
+        return new HashSet<>(getListText(text)); // O(1 + 1 + N^2)
     }
 
     /**
@@ -37,66 +37,54 @@ public class WoordenLogic implements IWoordenLogic
      * @param text to be split into individual words
      * @return a TreeSet containing the individual words in the given text
      */
-    private TreeSet<String> getTreeSetText(String text)
+    private TreeSet<String> getTreeSetText(String text) // O(log(N) + 1 + N^2)
     {
-        return new TreeSet<>(getListText(text));
+        return new TreeSet<>(getListText(text)); // O(log(N) + 1 + N^2)
     }
 
     @Override
-    public List<String> sortDescending(String text)
+    public List<String> sortDescending(String text) // O(1 + N^2 + N)
     {
-        List<String> strings = new LinkedList<>();
-        strings.addAll(getTreeSetText(text).descendingSet());
+        List<String> strings = new LinkedList<>(); // O(1)
+        strings.addAll(getTreeSetText(text).descendingSet()); // O(N^2 + N)
         return strings;
     }
 
     @Override
-    public SortedSet<Map.Entry<String, Integer>> frequenceOfWords(String text)
+    public SortedSet<Map.Entry<String, Integer>> frequenceOfWords(String text)  // O(N^2 + N + N log(N) + 1)
     {
-        List<String> listText = getListText(text);
-        HashSet<String> hashSetText = new HashSet<>(listText);
+        List<String> listText = getListText(text); // O(N^2)
+        HashSet<String> hashSetText = new HashSet<>(listText); // O (N)
 
         SortedSet<Map.Entry<String, Integer>> sortedSet = new TreeSet<>((e1, e2) ->
         {
             int res = e1.getValue().compareTo(e2.getValue());
             return res != 0 ? res : 1;
-        });
+        }); // O(1)
 
-        hashSetText.forEach(string -> sortedSet.add(new AbstractMap.SimpleEntry<>(string, Collections.frequency(listText, string))));
+        hashSetText.forEach(string -> sortedSet.add(new AbstractMap.SimpleEntry<>(string, Collections.frequency(listText, string)))); // O(N log(N))
 
         return sortedSet;
     }
 
     @Override
-    public Map<String, Set<Integer>> wordsOnLines(String text)
+    public Map<String, Set<Integer>> wordsOnLines(String text) // O(1 + n^2 + n * (1 + 2)
     {
-        String[] split = text.toLowerCase().split("[\n]+");
-        List<String> list = Arrays.asList(split);
+        Map<String, Set<Integer>> map = new HashMap<>(); // O(1)
 
-        Map<String, Set<Integer>> treeMap = new TreeMap<>();
+        String[] lines = text.split("\n+"); // O(n^2)
 
-        getHashSetText(text).forEach(string -> {
-            Set<Integer> integers = new HashSet<>();
+        for (int i = 0; i < lines.length; i++) // O(n)
+        {
+            String line = lines[i]; // O(1)
 
-            for (int i = 0; i < list.size(); i++)
+            for (String word : line.split(" ")) // O(n)
             {
-                for (String word : list.get(i).split("[, ]"))
-                {
-                    if (word.contentEquals(string))
-                    {
-                        integers.add(i + 1);
-                    }
-                }
-
-//                todo find regex so only separated words are allowed (improves performance by a factor of at least 4), remove workaround when completed
-//                if (list.get(i).matches("\\b" + string + "\\b"))
-//                {
-//                    integers.add(i + 1);
-//                }
+                Set<Integer> integers = map.computeIfAbsent(word, k -> new HashSet<>()); // O(2)
+                integers.add(i); // O(1)
             }
-            treeMap.put(string, integers);
-        });
+        }
 
-        return treeMap;
+        return map;
     }
 }
