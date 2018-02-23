@@ -2,6 +2,10 @@ package woordenapplicatie.logic;
 
 import java.util.*;
 
+/**
+ * An interpretation of logic of this application
+ * Implementation of IWoordenLogic
+ */
 public class WoordenLogic implements IWoordenLogic
 {
     @Override

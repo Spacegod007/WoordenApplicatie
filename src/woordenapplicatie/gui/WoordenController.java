@@ -12,7 +12,6 @@ import woordenapplicatie.logic.WoordenLogic;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 /**
  * FXML Controller class
