@@ -68,17 +68,17 @@ public class WoordenLogic implements IWoordenLogic
     }
 
     @Override
-    public Map<String, Set<Integer>> wordsOnLines(String text) // O(1 + n^2 + n * (1 + 2)
+    public Map<String, Set<Integer>> wordsOnLines(String text) // O(1 + N^2 + N * (1 + 2)
     {
         Map<String, Set<Integer>> map = new HashMap<>(); // O(1)
 
-        String[] lines = text.split("\n+"); // O(n^2)
+        String[] lines = text.split("\n+"); // O(N^2)
 
-        for (int i = 0; i < lines.length; i++) // O(n)
+        for (int i = 0; i < lines.length; i++) // O(N)
         {
             String line = lines[i]; // O(1)
 
-            for (String word : line.split(" ")) // O(n)
+            for (String word : line.split(" ")) // O(N^2 + N)
             {
                 Set<Integer> integers = map.computeIfAbsent(word, k -> new HashSet<>()); // O(2)
                 integers.add(i); // O(1)
