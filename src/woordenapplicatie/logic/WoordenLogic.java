@@ -84,8 +84,7 @@ public class WoordenLogic implements IWoordenLogic
 
             for (String word : line.split(" ")) // O(N^2 + N)
             {
-                Set<Integer> integers = map.computeIfAbsent(word, k -> new HashSet<>()); // O(2)
-                integers.add(i); // O(1)
+                map.computeIfAbsent(word, k -> new HashSet<>()).add(i); // O(3)
             }
         }
 
