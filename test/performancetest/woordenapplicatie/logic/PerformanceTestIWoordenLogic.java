@@ -1,4 +1,6 @@
-package woordenapplicatie.logic;
+package performancetest.woordenapplicatie.logic;
+
+import woordenapplicatie.logic.IWoordenLogic;
 
 import java.util.List;
 import java.util.Map;

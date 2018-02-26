@@ -20,8 +20,6 @@
                         <Button fx:id="btSorteer" mnemonicParsing="false" onAction="#sorteerAction" prefHeight="26.0" prefWidth="101.0" text="Sorteer" />
                         <Button fx:id="btFrequentie" layoutX="204.0" mnemonicParsing="false" onAction="#frequentieAction" prefHeight="26.0" prefWidth="102.0" text="Frequentie" />
                         <Button fx:id="btConcordantie" layoutX="306.0" mnemonicParsing="false" onAction="#concordatieAction" prefHeight="26.0" text="Concordantie" />
-                        <Button fx:id="btSet10000" layoutX="306.0" mnemonicParsing="false" onAction="#setTenThousand" prefHeight="26.0" text="Set 10.000" />
-                        <Button fx:id="btSet1000000" layoutX="306.0" mnemonicParsing="false" onAction="#setOneMillion" prefHeight="26.0" text="Set 1.000.000" />
                      </children>
                   </VBox>
                </children>
