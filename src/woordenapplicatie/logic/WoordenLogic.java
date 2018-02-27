@@ -76,7 +76,7 @@ public class WoordenLogic implements IWoordenLogic
     {
         Map<String, Set<Integer>> map = new HashMap<>(); // O(1)
 
-        String[] lines = text.split("\n+"); // O(N^2)
+        String[] lines = text.toLowerCase().split("\n+"); // O(N^2)
 
         for (int i = 0; i < lines.length; i++) // O(N)
         {
