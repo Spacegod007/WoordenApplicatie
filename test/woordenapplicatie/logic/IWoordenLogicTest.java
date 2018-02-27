@@ -28,10 +28,7 @@ public class IWoordenLogicTest
 
         for (int i = 0; i < simpleResult.length; i++)
         {
-            if (!result[i].equals(simpleResult[i]))
-            {
-                Assert.fail("General split fails");
-            }
+            Assert.assertFalse("General split fails", !result[i].equals(simpleResult[i]));
         }
 
         result = logic.getSplitText(TEST_TEXT_2);
@@ -39,10 +36,7 @@ public class IWoordenLogicTest
 
         for (int i = 0; i < advancedResult.length; i++)
         {
-            if (!result[i].equals(advancedResult[i]))
-            {
-                Assert.fail("Split fails on other character than spaces");
-            }
+            Assert.assertFalse("Split fails on other character than spaces", !result[i].equals(advancedResult[i]));
         }
     }
 
@@ -52,26 +46,14 @@ public class IWoordenLogicTest
         List<String> result = logic.getListText(TEST_TEXT_1);
         List<String> simpleResult = Arrays.asList(TEST_TEXT_1.split(" "));
 
-        if (result.size() != simpleResult.size())
-        {
-            Assert.fail("list does not contain equal amount of items (simple)");
-        }
-        if (!result.containsAll(simpleResult))
-        {
-            Assert.fail("the items it contains aren't correct (simple)");
-        }
+        Assert.assertFalse("list does not contain equal amount of items (simple)", result.size() != simpleResult.size());
+        Assert.assertFalse("the items it contains aren't correct (simple)", !result.containsAll(simpleResult));
 
         result = logic.getListText(TEST_TEXT_2);
         List<String> advancedResult = Arrays.asList(TEST_TEXT_2.split("[, \n]+"));
 
-        if (result.size() != advancedResult.size())
-        {
-            Assert.fail("List does not contain equal amount of items (advanced)");
-        }
-        if (!result.containsAll(advancedResult))
-        {
-            Assert.fail("The items it contains aren't correct (advanced)");
-        }
+        Assert.assertFalse("List does not contain equal amount of items (advanced)", result.size() != advancedResult.size());
+        Assert.assertFalse("The items it contains aren't correct (advanced)", !result.containsAll(advancedResult));
     }
 
     @Test
@@ -92,29 +74,16 @@ public class IWoordenLogicTest
         List<String> result = logic.sortDescending(TEST_TEXT_1);
         Set<String> simpleResult = new TreeSet<>(Arrays.asList(TEST_TEXT_1.split(" ")));
 
-        if (result.size() != simpleResult.size() || !result.containsAll(simpleResult))
-        {
-            Assert.fail("Result does not contain the items it should contain (simple)");
-        }
-
-        if (!(result.get(0).equals("this") || result.get(1).equals("test") || result.get(2).equals("text") || result.get(3).equals("is") || result.get(4).equals("a")))
-        {
-            Assert.fail("Result does not contain the correct order of items (simple)");
-        }
+        Assert.assertFalse("Result does not contain the items it should contain (simple)", result.size() != simpleResult.size() || !result.containsAll(simpleResult));
+        Assert.assertFalse("Result does not contain the correct order of items (simple)", !(result.get(0).equals("this") || result.get(1).equals("test") || result.get(2).equals("text") || result.get(3).equals("is") || result.get(4).equals("a")));
 
         result = logic.sortDescending(TEST_TEXT_2);
         Set<String> advancedResult = new TreeSet<>(Arrays.asList(TEST_TEXT_2.split("[, \n]+")));
 
-        if (result.size() != advancedResult.size() || !result.containsAll(advancedResult))
-        {
-            Assert.fail("Result does not contain the items it should contain (advanced)");
-        }
-
-        if (!(result.get(0).equals("to") || result.get(1).equals("this") || result.get(2).equals("text") || result.get(3).equals("test") || result.get(4).equals("supposed")
-                || result.get(5).equals("more") || result.get(6).equals("is") || result.get(7).equals("and") || result.get(8).equals("2")))
-        {
-            Assert.fail("Result does not contain the correct order of items (advanced)");
-        }
+        Assert.assertFalse("Result does not contain the items it should contain (advanced)", result.size() != advancedResult.size() || !result.containsAll(advancedResult));
+        Assert.assertFalse("Result does not contain the correct order of items (advanced)",
+                !(result.get(0).equals("to") || result.get(1).equals("this") || result.get(2).equals("text") || result.get(3).equals("test") || result.get(4).equals("supposed")
+                || result.get(5).equals("more") || result.get(6).equals("is") || result.get(7).equals("and") || result.get(8).equals("2")));
     }
 
     @Test
@@ -125,15 +94,8 @@ public class IWoordenLogicTest
 
         for (Map.Entry<String, Integer> stringIntegerEntry : result)
         {
-            if (!simpleResult.contains(stringIntegerEntry.getKey()))
-            {
-                Assert.fail("Result does not contain valid key");
-            }
-
-            if (stringIntegerEntry.getValue() != 1)
-            {
-                Assert.fail("Result value is not correct value");
-            }
+            Assert.assertFalse("Result does not contain valid key", !simpleResult.contains(stringIntegerEntry.getKey()));
+            Assert.assertFalse("Result value is not correct value", stringIntegerEntry.getValue() != 1);
         }
 
         result = logic.frequenceOfWords(TEST_TEXT_2);
@@ -146,20 +108,14 @@ public class IWoordenLogicTest
         {
             if (resultObject.getKey().equals(testWord))
             {
-                if (resultObject.getValue() != testValue)
-                {
-                    Assert.fail("Result value is incorrect");
-                }
+                Assert.assertFalse("Result value is incorrect", resultObject.getValue() != testValue);
 
                 foundObject[0] = true;
                 break;
             }
         }
 
-        if (!foundObject[0])
-        {
-            Assert.fail("Result object not found");
-        }
+        Assert.assertFalse("Result object not found", !foundObject[0]);
     }
 
     @Test
@@ -173,17 +129,9 @@ public class IWoordenLogicTest
         {
             Set<Integer> integers = result.get(splitItem);
 
-            if (integers == null)
-            {
-                Assert.fail("Every word should contain at least 1 value");
-            }
+            Assert.assertFalse("Every word should contain at least 1 value", integers == null);
 
-            integers.iterator().forEachRemaining(integer -> {
-                if (integer != 1)
-                {
-                    Assert.fail("Incorrect line number has been given to words in a text with one line");
-                }
-            });
+            integers.iterator().forEachRemaining(integer -> Assert.assertFalse("Incorrect line number has been given to words in a text with one line", integer != 1));
         }
 
         String lineTestText = "this is a test text \n" +
@@ -193,23 +141,12 @@ public class IWoordenLogicTest
         result = logic.wordsOnLines(lineTestText);
 
         Set<Integer> thisIntegers = result.get("this");
-        if (thisIntegers.size() != 1)
-        {
-            Assert.fail("Every item should appear at least once");
-        }
+        Assert.assertFalse("Every item should appear at least once", thisIntegers.size() != 1);
 
         Set<Integer> onIntegers = result.get("on");
-        if (onIntegers.size() > 1)
-        {
-            Assert.fail("Every integer can only appear once per word");
-        }
+        Assert.assertFalse("Every integer can only appear once per word", onIntegers.size() > 1);
 
         Set<Integer> withIntegers = result.get("with");
-        withIntegers.iterator().forEachRemaining(integer -> {
-            if (!(integer == 2 || integer == 3))
-            {
-                Assert.fail("Incorrect integers assigned to 'with' value");
-            }
-        });
+        withIntegers.iterator().forEachRemaining(integer -> Assert.assertFalse("Incorrect integers assigned to 'with' value", !(integer == 2 || integer == 3)));
     }
 }
