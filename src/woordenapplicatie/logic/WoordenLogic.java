@@ -47,11 +47,9 @@ public class WoordenLogic implements IWoordenLogic
     }
 
     @Override
-    public List<String> sortDescending(String text) // O(1 + N^2 + N)
+    public List<String> sortDescending(String text) // O(N^2 + N)
     {
-        List<String> strings = new LinkedList<>(); // O(1)
-        strings.addAll(getTreeSetText(text).descendingSet()); // O(N^2 + N)
-        return strings;
+        return new LinkedList<>(getTreeSetText(text).descendingSet()); // O(N^2 + N)
     }
 
     @Override
