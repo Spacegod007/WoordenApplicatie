@@ -181,7 +181,7 @@ public class IWoordenLogicTest
             integers.iterator().forEachRemaining(integer -> {
                 if (integer != 1)
                 {
-                    Assert.fail("Incorrect line number has been given to words in a text with one line"); //todo fix this!
+                    Assert.fail("Incorrect line number has been given to words in a text with one line");
                 }
             });
         }
