@@ -7,12 +7,25 @@ import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Performance test wrapper class for IWoordenLogic interface
+ */
 public class PerformanceTestIWoordenLogic implements IWoordenLogic
 {
+    /**
+     * A logger to log the timestamps
+     */
     private static final Logger LOGGER = Logger.getLogger(PerformanceTestIWoordenLogic.class.getName());
 
+    /**
+     * IWoordenLogic object where the time over each method will be measured
+     */
     private final IWoordenLogic logic;
 
+    /**
+     * Constructor of the Performance test class
+     * @param logic where the time for each method will be measured
+     */
     public PerformanceTestIWoordenLogic(IWoordenLogic logic)
     {
         this.logic = logic;
