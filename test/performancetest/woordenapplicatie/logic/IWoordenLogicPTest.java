@@ -83,6 +83,11 @@ public class IWoordenLogicPTest
         wordsOnLinesTest(test1M);
     }
 
+    /**
+     * Tests getSplitText method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void getSplitTextTest(String text) throws Exception
     {
         long[] testTimes = new long[performanceTestTimes];
@@ -97,6 +102,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Tests getListText method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void getListTextTest(String text) throws Exception
     {
         long[] testTimes = new long[performanceTestTimes];
@@ -111,6 +121,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Tests getUniqueWordCount method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void getUniqueWordCountTest(String text) throws Exception
     {
         long[] testTimes = new long[performanceTestTimes];
@@ -125,6 +140,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Tests sortDescending method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void sortDescendingTest(String text) throws Exception
     {
         long[] testTime = new long[performanceTestTimes];
@@ -139,6 +159,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Tests frequenceOfWords method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void frequenceOfWordsTest(String text) throws Exception
     {
         long[] testTime = new long[performanceTestTimes];
@@ -153,6 +178,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Tests wordsOnLines method a specified number of times
+     * @param text used to test
+     * @throws Exception if something goes wrong
+     */
     private void wordsOnLinesTest(String text) throws Exception
     {
         long[] testTime = new long[performanceTestTimes];
@@ -167,6 +197,11 @@ public class IWoordenLogicPTest
         LOGGER.log(Level.INFO, logMessage);
     }
 
+    /**
+     * Generates a test string of random numbers
+     * @param numberOfWords number of words to add to the test
+     * @return a test string
+     */
     private String generateString(int numberOfWords)
     {
         Random random = new Random();
