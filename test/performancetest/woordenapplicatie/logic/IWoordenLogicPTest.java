@@ -13,6 +13,8 @@ public class IWoordenLogicPTest
 {
     private static final Logger LOGGER = Logger.getLogger(IWoordenLogicPTest.class.getName());
 
+    private static final int performanceTestTimes = 12;
+
     private IWoordenLogic logic;
     private String test10K;
     private String test1M;
@@ -29,99 +31,139 @@ public class IWoordenLogicPTest
 //        test1M = generateString(1000000); //one million
     }
 
+    private long getAverageTime(long[] times)
+    {
+        long returnable = 0;
+        for (long time : times)
+        {
+            returnable += time;
+        }
+        return returnable / times.length;
+    }
+
     @Test
     public void getSplitText() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.getSplitText(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("getSplitText - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
-
-        startTime = System.nanoTime();
-        logic.getSplitText(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("getSplitText - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        getSplitTextTest(test10K);
+        getSplitTextTest(test1M);
     }
 
     @Test
     public void getListText() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.getListText(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("getListText - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
-
-        startTime = System.nanoTime();
-        logic.getListText(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("getListText - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        getSplitTextTest(test10K);
+        getSplitTextTest(test1M);
     }
 
     @Test
     public void getUniqueWordCount() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.getUniqueWordCount(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("getUniqueWordCount - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
-
-        startTime = System.nanoTime();
-        logic.getUniqueWordCount(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("getUniqueWordCount - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        getUniqueWordCountTest(test10K);
+        getUniqueWordCountTest(test1M);
     }
 
     @Test
     public void sortDescending() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.sortDescending(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("sortDescending - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
-
-        startTime = System.nanoTime();
-        logic.sortDescending(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("sortDescending - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        sortDescendingTest(test10K);
+        sortDescendingTest(test1M);
     }
 
     @Test
     public void frequenceOfWords() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.frequenceOfWords(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("frequenceOfWords - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
-
-        startTime = System.nanoTime();
-        logic.frequenceOfWords(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("frequenceOfWords - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        frequenceOfWordsTest(test10K);
+        frequenceOfWordsTest(test1M);
     }
 
     @Test
     public void wordsOnLines() throws Exception
     {
-        long startTime = System.nanoTime();
-        logic.wordsOnLines(test10K);
-        long resultTime = System.nanoTime() - startTime;
-        String logMessage = String.format("wordsOnLines - Time measured: %d nanoseconds", resultTime);
-        LOGGER.log(Level.INFO, logMessage);
+        wordsOnLinesTest(test10K);
+        wordsOnLinesTest(test1M);
+    }
 
-        startTime = System.nanoTime();
-        logic.wordsOnLines(test1M);
-        resultTime = System.nanoTime() - startTime;
-        logMessage = String.format("wordsOnLines - Time measured: %d nanoseconds", resultTime);
+    private void getSplitTextTest(String text) throws Exception
+    {
+        long[] testTimes = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.getSplitText(text);
+            testTimes[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTimes);
+        String logMessage = String.format("getSplitText - length: %s - Time measured: %s nanoseconds", text.length(), resultTime);
+        LOGGER.log(Level.INFO, logMessage);
+    }
+
+    private void getListTextTest(String text) throws Exception
+    {
+        long[] testTimes = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.getListText(text);
+            testTimes[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTimes);
+        String logMessage = String.format("getListText - length: %s - Time measured: %s nanoseconds", text.length(), resultTime);
+        LOGGER.log(Level.INFO, logMessage);
+    }
+
+    private void getUniqueWordCountTest(String text) throws Exception
+    {
+        long[] testTimes = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.getUniqueWordCount(text);
+            testTimes[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTimes);
+        String logMessage = String.format("getUniqueWordCount - length: %s - Time measured: %s nanoseconds", text.length(), resultTime);
+        LOGGER.log(Level.INFO, logMessage);
+    }
+
+    private void sortDescendingTest(String text) throws Exception
+    {
+        long[] testTime = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.sortDescending(text);
+            testTime[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTime);
+        String logMessage = String.format("sortDescending - length: %s - Time measured: %s nanoseconds", text.length(), resultTime);
+        LOGGER.log(Level.INFO, logMessage);
+    }
+
+    private void frequenceOfWordsTest(String text) throws Exception
+    {
+        long[] testTime = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.frequenceOfWords(text);
+            testTime[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTime);
+        String logMessage = String.format("frequenceOfWords - length: %s - Time measured: %s nanoseconds", text.length(), resultTime);
+        LOGGER.log(Level.INFO, logMessage);
+    }
+
+    private void wordsOnLinesTest(String text) throws Exception
+    {
+        long[] testTime = new long[performanceTestTimes];
+        for (int i = 0; i < performanceTestTimes; i++)
+        {
+            long beginTime = System.nanoTime();
+            logic.wordsOnLines(text);
+            testTime[i] = System.nanoTime() - beginTime;
+        }
+        long resultTime = getAverageTime(testTime);
+        String logMessage = String.format("wordsOnLines - Time measured: %d nanoseconds", resultTime);
         LOGGER.log(Level.INFO, logMessage);
     }
 
